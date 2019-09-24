@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+
+
 import io         # used to create file streams
 from io import open
 import fcntl      # used to access I2C parameters like addresses
