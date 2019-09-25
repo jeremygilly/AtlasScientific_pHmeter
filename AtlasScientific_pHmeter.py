@@ -65,7 +65,7 @@ class AS_pH_I2C:
 					str_response = str(''.join(char_list))
 					return str_response
 				else:
-					#~ return "Error " + str(res[0])
+					return str(res[0])
 					pass
 
 	def query(self, string):
@@ -88,7 +88,10 @@ class AS_pH_I2C:
 				pass
 		self.set_i2c_address(prev_addr) # restore the address we were using
 		return i2c_devices
-
+	
+	def single_output(self):
+		return self.query("R")
+	
 	def calibration(self, point = 'mid', pH = 7):
 		command = 'cal'
 		points = ['low','mid','high']
@@ -204,8 +207,9 @@ def main2():
 		
 	elif response == 'n':
 		pass
-
-
+	while(1):
+		print(device.query("R"))
+		
 
 if __name__ == '__main__':
 	main2()
