@@ -90,7 +90,13 @@ class AS_pH_I2C:
 		return i2c_devices
 	
 	def single_output(self):
-		return self.query("R")
+		response = str(self.query("R"))
+		if response not in [str(254), str(254.0), None]: 
+			response = float(response[:5])
+			return response
+		else: 
+			return float(254)
+		
 	
 	def calibration(self, point = 'mid', pH = 7):
 		command = 'cal'
@@ -207,8 +213,17 @@ def main2():
 		
 	elif response == 'n':
 		pass
+	last_time = time.time()
 	while(1):
-		print(device.query("R"))
+		output = device.single_output()
+		
+		if output in [254, 254.0, str(254), str(254.0)]:
+			#~ print("Raw:", output)
+			pass
+		else:
+			print("Output:", output)
+			print("Time between:", time.time() - last_time)
+			last_time = time.time()
 		
 
 if __name__ == '__main__':
