@@ -91,7 +91,7 @@ class AS_pH_I2C:
 	
 	def single_output(self):
 		response = str(self.query("R"))
-		if response not in [str(254), str(254.0), None]: 
+		if response not in [str(254), str(254.0), None, 'None']: 
 			response = float(response[:5])
 			return response
 		else: 
